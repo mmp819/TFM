@@ -1,0 +1,52 @@
+{
+    "32": {
+        "throughput_MBps": 710.2,
+        "total_samples": 2000000.0,
+        "percentage_lost_samples": 0.0
+    },
+    "64": {
+        "throughput_MBps": 812.4,
+        "total_samples": 2000000.0,
+        "percentage_lost_samples": 0.0
+    },
+    "128": {
+        "throughput_MBps": 818.0,
+        "total_samples": 2000000.0,
+        "percentage_lost_samples": 0.0
+    },
+    "256": {
+        "throughput_MBps": 880.3,
+        "total_samples": 2000000.0,
+        "percentage_lost_samples": 0.0
+    },
+    "512": {
+        "throughput_MBps": 912.1,
+        "total_samples": 2000000.0,
+        "percentage_lost_samples": 0.0
+    },
+    "1024": {
+        "throughput_MBps": 922.9,
+        "total_samples": 2000000.0,
+        "percentage_lost_samples": 0.0
+    },
+    "2048": {
+        "throughput_MBps": 929.5,
+        "total_samples": 2000000.0,
+        "percentage_lost_samples": 0.0
+    },
+    "4096": {
+        "throughput_MBps": 942.3,
+        "total_samples": 2000000.0,
+        "percentage_lost_samples": 0.0
+    },
+    "8192": {
+        "throughput_MBps": 947.5,
+        "total_samples": 2000000.0,
+        "percentage_lost_samples": 0.0
+    },
+    "16384": {
+        "throughput_MBps": 931.0,
+        "total_samples": 2000000.0,
+        "percentage_lost_samples": 0.0
+    }
+}

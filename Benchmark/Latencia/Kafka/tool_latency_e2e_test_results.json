@@ -1,0 +1,74 @@
+{
+    "32": {
+        "latency_avg_ms": 5.4032,
+        "latency_p50_ms": 3.0,
+        "latency_p99_ms": 55.0,
+        "latency_p999_ms": 55.0
+    },
+    "64": {
+        "latency_avg_ms": 4.347,
+        "latency_p50_ms": 3.0,
+        "latency_p99_ms": 48.0,
+        "latency_p999_ms": 48.0
+    },
+    "128": {
+        "latency_avg_ms": 3.8059,
+        "latency_p50_ms": 3.0,
+        "latency_p99_ms": 5.0,
+        "latency_p999_ms": 54.0
+    },
+    "256": {
+        "latency_avg_ms": 3.2044,
+        "latency_p50_ms": 2.0,
+        "latency_p99_ms": 5.0,
+        "latency_p999_ms": 50.0
+    },
+    "512": {
+        "latency_avg_ms": 2.7845,
+        "latency_p50_ms": 2.0,
+        "latency_p99_ms": 4.0,
+        "latency_p999_ms": 52.0
+    },
+    "1024": {
+        "latency_avg_ms": 2.2491,
+        "latency_p50_ms": 2.0,
+        "latency_p99_ms": 4.0,
+        "latency_p999_ms": 10.0
+    },
+    "2048": {
+        "latency_avg_ms": 1.8446,
+        "latency_p50_ms": 1.0,
+        "latency_p99_ms": 4.0,
+        "latency_p999_ms": 11.0
+    },
+    "4096": {
+        "latency_avg_ms": 1.6489,
+        "latency_p50_ms": 1.0,
+        "latency_p99_ms": 3.0,
+        "latency_p999_ms": 6.0
+    },
+    "8192": {
+        "latency_avg_ms": 1.5403,
+        "latency_p50_ms": 1.0,
+        "latency_p99_ms": 3.0,
+        "latency_p999_ms": 6.0
+    },
+    "16384": {
+        "latency_avg_ms": 1.4973,
+        "latency_p50_ms": 1.0,
+        "latency_p99_ms": 2.0,
+        "latency_p999_ms": 5.0
+    },
+    "32768": {
+        "latency_avg_ms": 1.4317,
+        "latency_p50_ms": 1.0,
+        "latency_p99_ms": 2.0,
+        "latency_p999_ms": 4.0
+    },
+    "63000": {
+        "latency_avg_ms": 1.4167,
+        "latency_p50_ms": 1.0,
+        "latency_p99_ms": 2.0,
+        "latency_p999_ms": 3.0
+    }
+}

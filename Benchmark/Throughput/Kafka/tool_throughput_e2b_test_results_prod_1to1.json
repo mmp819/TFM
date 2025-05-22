@@ -1,0 +1,35 @@
+{
+    "32": {
+        "throughput_MBps": 5.09
+    },
+    "64": {
+        "throughput_MBps": 8.55
+    },
+    "128": {
+        "throughput_MBps": 14.65
+    },
+    "256": {
+        "throughput_MBps": 21.34
+    },
+    "512": {
+        "throughput_MBps": 32.17
+    },
+    "1024": {
+        "throughput_MBps": 40.62
+    },
+    "2048": {
+        "throughput_MBps": 37.79
+    },
+    "4096": {
+        "throughput_MBps": 24.8
+    },
+    "8192": {
+        "throughput_MBps": 38.53
+    },
+    "16384": {
+        "throughput_MBps": 48.78
+    },
+    "32768": {
+        "throughput_MBps": 67.07
+    }
+}
