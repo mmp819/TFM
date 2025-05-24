@@ -1,0 +1,23 @@
+module VehicleSimulation {
+	@final
+	struct VehicleState {
+		@key string <2> vehicle_id;  // Identificador del vehiculo
+		double timestamp;            // Marca temporal en segundos
+		double gps_latitude;         // Coordenada de latitud
+		double gps_longitude;        // Coordenada de longitud   
+		double gps_altitude;         // Altitud sobre el nivel del mar
+		double gps_hdop;             // Dilucion de precision horizontal
+		double gps_pdop;             // Dilucion de precision (posicion-3D)
+		double gps_vdop;             // Dilucion de precision vertical
+		double speed;                // Velocidad en Km/h
+	};
+	
+	@final
+	struct AggregatedVehicleData {
+		@key string<2> sector_id;    // Identificador del sector/dominio
+		double timestamp;            // Marca temporal en segundos
+		double avg_speed;            // Velocidad media en el sector (Km/h)
+		int32 vehicle_count;         // Numero de vehiculos en el sector
+		double congestion_lvl;       // Nivel de congestion en el sector
+	};
+};

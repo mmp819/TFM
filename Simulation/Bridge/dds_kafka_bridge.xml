@@ -1,0 +1,176 @@
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="/opt/rti_connext_dds-7.5.0/resource/schema/rti_routing_service.xsd">
+    
+    <!-- Incluir plugin de Kafka. -->
+    <plugin_library name="plugin_library">
+        <adapter_plugin name="kafka_adapter">
+            <dll>
+                rtikafkaadapter
+            </dll>
+            <create_function>
+                RTI_RS_Kafka_AdapterPlugin_create
+            </create_function>
+        </adapter_plugin>
+        <transformation_plugin name="json_transformation">
+            <dll>
+                rtijsontransf
+            </dll>
+            <create_function>
+                RTI_TSFM_JsonTransformationPlugin_create
+            </create_function>
+        </transformation_plugin>
+    </plugin_library>
+
+    <!-- Definicion explicita de tipos de datos utilizados -->
+    <types>
+        <struct name="VehicleStateType" extensibility="final">
+            <member name="vehicle_id" type="string" stringMaxLength="2" key="true"/>
+            <member name="timestamp" type="double"/>
+            <member name="gps_latitude" type="double"/>
+            <member name="gps_longitude" type="double"/>
+            <member name="gps_altitude" type="double"/>
+            <member name="gps_hdop" type="double"/>
+            <member name="gps_pdop" type="double"/>
+            <member name="gps_vdop" type="double"/>
+            <member name="speed" type="double"/>
+        </struct>
+        <struct name="AggregatedDataType" extensibility="final">
+            <member name="sector_id" type="string" stringMaxLength="2" key="true"/>
+            <member name="timestamp" type="double"/>
+            <member name="avg_speed" type="double"/>
+            <member name="vehicle_count" type="int32"/>
+            <member name="congestion_lvl" type="double"/>
+        </struct>
+        <module name="RTI">
+            <module name="Kafka">
+                <struct name="MessagePayload" nested="true">
+                    <member name="data" sequenceMaxLength="-1" type="byte"/>
+                </struct>
+                <struct name="Message">
+                    <member name="payload" type="nonBasic" nonBasicTypeName="RTI::Kafka::MessagePayload"/>
+                </struct>
+            </module>
+        </module>
+    </types>
+    <routing_service name="DDStoKafka">
+        <annotation>
+            <documentation>
+                Bridge to connect DDS to Kafka.
+            </documentation>
+        </annotation>
+
+        <!-- Habilitar monitorizacion -->
+        <monitoring>
+            <enabled>true</enable>
+            <domain_id>12</domain_id>
+            <statistic_sampling_period>
+                <sec>1</sec>
+                <nanosec>0</nanosec>
+            </statistic_sampling_period>
+           <status_publication_period>
+                <sec>3</sec>
+                <nanosec>0</nanosec>
+            </status_publication_period>
+        </monitoring>
+
+        <!-- Definir rutas -->
+        <domain_route name="dds_to_kafka_route">
+            <participant name="dds">
+                <registered_type name="VehicleStateType" type_name="VehicleStateType"/>
+                <registered_type name="AggregatedDataType" type_name="AggregatedDataType"/>
+                <registered_type name="RTI::Kafka::Message" type_name="RTI::Kafka::Message"/>
+            </participant>
+            <connection name="kafka" plugin_name="plugin_library::kafka_adapter">
+                <property>
+                    <value>
+                        <element>
+                            <name>bootstrap.servers</name>
+                            <value>127.0.0.1:9092</value>
+                        </element>
+                    </value>
+                </property>
+                <registered_type name="VehicleStateType" type_name="VehicleStateType"/>
+                <registered_type name="AggregatedDataType" type_name="AggregatedDataType"/>
+                <registered_type name="RTI::Kafka::Message" type_name="RTI::Kafka::Message"/>
+            </connection>
+            <session name="bridge_session">
+                <route name="dds_to_kafka_vehicle">
+                    <dds_input name="VehicleState" participant="dds">
+                        <topic_name>VehicleState</topic_name>
+                        <registered_type_name>VehicleStateType</registered_type_name>
+                    </dds_input>
+                    <output connection="kafka">
+                        <registered_type_name>
+                            RTI::Kafka::Message
+                        </registered_type_name>
+                        <property>
+                            <value>
+                                <element>
+                                    <name>topic</name>
+                                    <value>Vehicle_State</value>
+                                </element>
+                                <element>
+                                    <name>queue.buffering.max.messages</name>
+                                    <value>1000</value>
+                                </element>
+                            </value>
+                        </property>
+                        <transformation plugin_name="plugin_library::json_transformation">
+                            <input_type_name>VehicleStateType</input_type_name>
+                            <property>
+                                <value>
+                                    <element>
+                                        <name>transform_type</name>
+                                        <value>serialize</name>
+                                    </element>
+                                    <element>
+                                        <name>buffer_member</name>
+                                        <value>payload.data</value>
+                                    </element>
+                                </value>
+                            </property>
+                        </transformation>
+                    </output>
+                </route>
+                <route name="dds_to_kafka_aggregated">
+                    <dds_input name="AggregatedData" participant="dds">
+                        <topic_name>AggregatedData</topic_name>
+                        <registered_type_name>AggregatedDataType</registered_type_name>
+                    </dds_input>
+                    <output connection="kafka">
+                        <registered_type_name>
+                            RTI::Kafka::Message
+                        </registered_type_name>
+                        <property>
+                            <value>
+                                <element>
+                                    <name>topic</name>
+                                    <value>Aggregated_Data</value>
+                                </element>
+                                <element>
+                                    <name>queue.buffering.max.messages</name>
+                                    <value>1000</value>
+                                </element>
+                            </value>
+                        </property>
+                        <transformation plugin_name="plugin_library::json_transformation">
+                            <input_type_name>AggregatedDataType</input_type_name>
+                            <property>
+                                <value>
+                                    <element>
+                                        <name>transform_type</name>
+                                        <value>serialize</name>
+                                    </element>
+                                    <element>
+                                        <name>buffer_member</name>
+                                        <value>payload.data</value>
+                                    </element>
+                                </value>
+                            </property>
+                        </transformation>
+                    </output>
+                </route>
+            </session>
+        </domain_route>
+    </routing_service>  
+</dds>
