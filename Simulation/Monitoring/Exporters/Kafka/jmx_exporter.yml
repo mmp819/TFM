@@ -1,0 +1,60 @@
+rules:
+  # Bytes entrantes por segundo en ambos topicos
+  - pattern : kafka.server<type=BrokerTopicMetrics, name=BytesInPerSec, topic=vehicle_states><>OneMinuteRate
+    name: kafka_vehicle_states_bytes_in_per_sec
+    help: Bytes entrantes por segundo del topico vehicle_states.
+    type: GAUGE
+    labels:
+      topic: "vehicle_states"
+  
+  - pattern : kafka.server<type=BrokerTopicMetrics, name=BytesInPerSec, topic=aggregated_data><>OneMinuteRate
+    name: kafka_aggregated_data_bytes_in_per_sec
+    help: Bytes entrantes por segundo del topico aggregated_data.
+    type: GAUGE
+    labels:
+      topic: "aggregated_data"
+
+  # Mensajes entrantes por segundo en ambos topicos
+  - pattern : kafka.server<type=BrokerTopicMetrics, name=MessagesInPerSec, topic=vehicle_states><>OneMinuteRate
+    name: kafka_vehicle_states_messages_in_per_sec
+    help: Mensajes entrantes por segundo del topico vehicle_states.
+    type: GAUGE
+    labels:
+      topic: "vehicle_states"
+
+  - pattern : kafka.server<type=BrokerTopicMetrics, name=MessagesInPerSec, topic=aggregated_data><>OneMinuteRate
+    name: kafka_aggregated_data_messages_in_per_sec
+    help: Mensajes entrantes por segundo del topico aggregated_data.
+    type: GAUGE
+    labels:
+      topic: "aggregated_data"
+  
+  # Bytes salientes por segundo en ambos topicos
+  - pattern : kafka.server<type=BrokerTopicMetrics, name=BytesOutPerSec, topic=vehicle_states><>OneMinuteRate
+    name: kafka_vehicle_states_bytes_out_per_sec
+    help: Bytes salientes por segundo del topico vehicle_states.
+    type: GAUGE
+    labels:
+      topic: "vehicle_states"
+
+  - pattern : kafka.server<type=BrokerTopicMetrics, name=BytesOutPerSec, topic=aggregated_data><>OneMinuteRate
+    name: kafka_aggregated_data_bytes_out_per_sec
+    help: Bytes salientes por segundo del topico aggregated_data.
+    type: GAUGE
+    labels:
+      topic: "aggregated_data"
+
+  # Mensajes salientes por segundo en ambos topicos
+  - pattern : kafka.server<type=BrokerTopicMetrics, name=MessagesOutPerSec, topic=vehicle_states><>OneMinuteRate
+    name: kafka_vehicle_states_messages_out_per_sec
+    help: Mensajes salientes por segundo del topico vehicle_states.
+    type: GAUGE
+    labels:
+      topic: "vehicle_states"
+  
+  - pattern : kafka.server<type=BrokerTopicMetrics, name=MessagesOutPerSec, topic=aggregated_data><>OneMinuteRate
+    name: kafka_aggregated_data_messages_out_per_sec
+    help: Mensajes salientes por segundo del topico aggregated_data.
+    type: GAUGE
+    labels:
+      topic: "aggregated_data"
