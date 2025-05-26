@@ -8,10 +8,10 @@ install_monitoring_stack() {
 
     # Prometheus
     echo "[*] Descargando e instalando Prometheus..."
-    echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo wget https://github.com/prometheus/prometheus/releases/download/v2.53.4/prometheus-2.53.4.linux-amd64.tar.gz -O /tmp/prometheus.tar.gz"
+    sshpass -p $PASS ssh -tt -p $PORT $USER@$node "wget https://github.com/prometheus/prometheus/releases/download/v2.53.4/prometheus-2.53.4.linux-amd64.tar.gz -O /tmp/prometheus.tar.gz"
     echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo mkdir -p /opt/prometheus"
     echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo tar -xzf /tmp/prometheus.tar.gz -C /opt/prometheus --strip-components=1"
-    echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo rm /tmp/prometheus.tar.gz"
+    sshpass -p $PASS ssh -p $PORT $USER@$node "rm /tmp/prometheus.tar.gz"
 
     echo "[*] Añadiendo Prometheus al PATH..."
     sshpass -p $PASS ssh -p $PORT $USER@$node "echo 'export PROMETHEUS_HOME=/opt/prometheus' >> ~/.bashrc"

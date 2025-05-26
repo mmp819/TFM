@@ -18,6 +18,7 @@ install_dds() {
     echo "[*] Actualizando repositorios..."
     echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo apt-get update"
     echo "[*] Instalando RTI Connext..."
+    echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "echo 'rti-connext-dds-7.5.0-common rti-connext-dds-7.5.0/license/accepted select true' | sudo debconf-set-selections"
     echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo apt-get install -y rti-connext-dds-7.5.0 curl gnupg git cmake build-essential default-jdk"
 
     # Crear carpeta de trabajo
@@ -37,7 +38,7 @@ install_dds() {
     
     # Establecer variables de entorno
     echo "[*] Estableciendo variable DDSHOME"
-    sshpass -p $PASS ssh -tt -p $PORT $USER@$node "echo 'export NDDSHOME=/opt/rti.com/rti_connext_dds-7.5.0' >> ~/.bashrc"
+    sshpass -p $PASS ssh -p $PORT $USER@$node "echo 'export NDDSHOME=/opt/rti.com/rti_connext_dds-7.5.0' >> ~/.bashrc"
     echo "[*] Estableciendo variables de entorno para librerias..."
     sshpass -p $PASS ssh -p $PORT $USER@$node "echo 'export LD_LIBRARY_PATH=\$NDDSHOME/rticonnextdds-gateway/install/lib:\$NDDSHOME/lib/x64Linux4gcc7.3.0:\$LD_LIBRARY_PATH' >> ~/.bashrc"
     echo "[*] Añadiendo RTI al PATH..."
