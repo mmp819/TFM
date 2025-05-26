@@ -61,16 +61,16 @@
 
         <!-- Habilitar monitorizacion -->
         <monitoring>
-            <enabled>true</enable>
+            <enabled>true</enabled>
             <domain_id>12</domain_id>
-            <statistic_sampling_period>
-                <sec>1</sec>
-                <nanosec>0</nanosec>
-            </statistic_sampling_period>
            <status_publication_period>
                 <sec>3</sec>
                 <nanosec>0</nanosec>
             </status_publication_period>
+            <statistics_sampling_period>
+                <sec>1</sec>
+                <nanosec>0</nanosec>
+            </statistics_sampling_period>
         </monitoring>
 
         <!-- Definir rutas -->
@@ -121,7 +121,7 @@
                                 <value>
                                     <element>
                                         <name>transform_type</name>
-                                        <value>serialize</name>
+                                        <value>serialize</value>
                                     </element>
                                     <element>
                                         <name>buffer_member</name>
@@ -159,7 +159,7 @@
                                 <value>
                                     <element>
                                         <name>transform_type</name>
-                                        <value>serialize</name>
+                                        <value>serialize</value>
                                     </element>
                                     <element>
                                         <name>buffer_member</name>

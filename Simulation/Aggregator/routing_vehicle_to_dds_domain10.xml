@@ -1,10 +1,10 @@
 <dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="/opt/rti_connext_dds-7.5.0/resource/schema/rti_routing_service.xsd">
     
-    <!-- Incluir libreria QoS para garantizar calidad en la agregacion -->
+    <!-- Incluir libreria QoS para garantizar calidad en la agregacion 
     <qos_library name="RoutingLibrary">
         <qos_profile name="RoutingBaseProfile" base_name="BuiltinQosLib::Generic.StrictReliable"/>
-    </qos_library>
+    </qos_library>-->
 
     <routing_service name="AggregationRouting">
         <annotation>
@@ -18,7 +18,7 @@
         <administration>
             <domain_id>0</domain_id>
             <distributed_logger>
-                 <enable>true</enable>
+                 <enabled>true</enabled>
                 <filter_level>WARNING</filter_level>
             </distributed_logger>
         </administration>

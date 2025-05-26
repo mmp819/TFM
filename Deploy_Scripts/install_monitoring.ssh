@@ -1,0 +1,36 @@
+#!/bin/bash
+source common.sh
+
+install_monitoring_stack() {
+    local node=$1
+
+    echo "[*] Instalando Prometheus y Grafana en $USER@$node"
+
+    # Prometheus
+    echo "[*] Descargando e instalando Prometheus..."
+    echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo wget https://github.com/prometheus/prometheus/releases/download/v2.53.4/prometheus-2.53.4.linux-amd64.tar.gz -O /tmp/prometheus.tar.gz"
+    echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo mkdir -p /opt/prometheus"
+    echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo tar -xzf /tmp/prometheus.tar.gz -C /opt/prometheus --strip-components=1"
+    echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo rm /tmp/prometheus.tar.gz"
+
+    echo "[*] Añadiendo Prometheus al PATH..."
+    sshpass -p $PASS ssh -p $PORT $USER@$node "echo 'export PROMETHEUS_HOME=/opt/prometheus' >> ~/.bashrc"
+    sshpass -p $PASS ssh -p $PORT $USER@$node "echo 'export PATH=\$PATH:\$PROMETHEUS_HOME' >> ~/.bashrc"
+
+    # Grafana
+    echo "[*] Añadiendo repositorio de Grafana..."
+	echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo apt-get install -y apt-transport-https software-properties-common wget"
+
+	echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo mkdir -p /etc/apt/keyrings"
+
+	echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null"
+
+	echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "echo 'deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main' | sudo tee -a /etc/apt/sources.list.d/grafana.list"
+
+	echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo apt-get update"
+
+	echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo apt-get install -y grafana"
+}
+
+install_monitoring_stack 127.0.0.1 # Cambiar IP por la del LAB
+
