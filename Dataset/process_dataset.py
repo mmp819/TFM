@@ -24,9 +24,8 @@ def calculate_sector(lat, sector_bounds):
 
     for i in range(NUM_SECTORS):
         if sector_bounds[i] <= lat < sector_bounds[i + 1]:
-           return i
-    return NUM_SECTORS - 1
-
+           return i + 1
+    return NUM_SECTORS 
 def shift_time(timestamp, i):
     # Ajustar el timestamp con un determinado desfase en funcion del vehiculo.
 
