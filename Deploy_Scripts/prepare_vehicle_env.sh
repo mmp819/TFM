@@ -2,11 +2,11 @@
 source common.sh
 
 prepare_vehicle_env() {
-    local id=$1
+    local v_id=$1
     local node=$2
 
-    local csv="veh_${id}.csv"
-    local dest="${REMOTE_DIR}/veh_${id}"
+    local csv="veh_${v_id}.csv"
+    local dest="${REMOTE_DIR}/veh_${v_id}"
 
     # Crear directorio remoto
     echo "[*] Creando directorio..."

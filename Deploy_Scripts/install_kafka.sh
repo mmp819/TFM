@@ -21,5 +21,5 @@ install_kafka() {
     sshpass -p $PASS ssh -p $PORT $USER@$node "echo 'export PATH=\${PATH}:\${KAFKA_HOME}/bin' >> ~/.bashrc"
 }
 
-install_kafka 127.0.0.1  # Actualizar IP en el LAB
+install_kafka $1 # IP
 

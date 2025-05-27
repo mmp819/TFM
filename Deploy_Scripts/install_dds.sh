@@ -3,6 +3,13 @@ source common.sh
 
 RTI_WORKSPACE_DIR="/home/$USER/rti_workspace/7.5.0"
 
+for_each_node() {
+    while read node; do
+        echo -e "\n[*] Ejecutando en $node"
+        "$@" "$node"
+    done < nodes_dds.txt
+}
+
 install_dds() {
     local node=$1
 
