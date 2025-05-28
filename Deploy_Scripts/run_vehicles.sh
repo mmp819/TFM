@@ -16,7 +16,7 @@ run_vehicles() {
 			nohup python3 vehicle.py $csv > ${veh_id}.log 2>&1 &"
 			
 		((v_n++)) # Incremento de contador asignado al numero que conforma el ID de los vehiculos.
-	done < nodes_dds.txt
+	done < nodes_vehicles.txt
 }
 
 run_vehicles

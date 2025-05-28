@@ -9,7 +9,7 @@ stop_vehicles() {
 		# Matar proceso
 		echo "Ejecutando Vehiculo ${veh_id} en $node..."
 		sshpass -p $PASS ssh -p $PORT $USER@$node "pkill -f vehicle.py && echo 'Simulacion detenida.'"
-	done < nodes_dds.txt
+	done < nodes_vehicles.txt
 }
 
 stop_vehicles
