@@ -4,7 +4,7 @@ source common.sh
 prepare_monitoring_kafka_env() {
 	local node=$1
 	local dir_kafka="/opt/kafka"
-	local dir_tmp="/home/${USER}/tmp_jmx"
+	local dir_tmp="${REMOTE_DIR}/tmp_jmx"
 	local jmx_export_port=7075
 	
 	echo "[*] Creando directorio temporal..."
