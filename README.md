@@ -22,9 +22,11 @@ Asimismo, también se ha desarrollado una automatización del despliegue de las 
 * **Benchmark**: Código utilizado para la ejecución automatizada de tests reducidos de rendimiento para Kafka/DDS. Se encuentra organizado en función de las métricas:
   - Latencia
   - *Throughput*
+
 A su vez, para cada métrica, se puede estudiar el material ofrecido en función del *middleware* empleado:
   - DDS
-  - Kafka
+  - Kafka+
+
 También incluye las imágenes de las figuras generadas, la colección completa de resultados en JSON y el código empleado en la generación de las figuras.
 * **Dataset**: Recoge la sección empleada del *dataset* y el código correspondiente a su procesado y los CSV resultantes para cada vehículo.
 * **Deploy_Scripts**: *Scripts* utilizados para la automatización de la instalación de dependencias necesarias, preparación de entornos y ejecución de vehiculos.
