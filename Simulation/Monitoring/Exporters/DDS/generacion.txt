@@ -1,0 +1,2 @@
+rtiddsgen -language Python -d . -inputIdl /opt/rti.com/rti_connext_dds-7.5.0/resource/idl/ServiceCommon.idl
+rtiddsgen -language Python -d . -inputIdl /opt/rti.com/rti_connext_dds-7.5.0/resource/idl/RoutingServiceMonitoring.idl

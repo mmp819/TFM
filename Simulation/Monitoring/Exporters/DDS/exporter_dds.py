@@ -1,6 +1,6 @@
 from prometheus_client import start_http_server, Gauge
-from ServiceMonitoring import RTI_Service_Monitoring_Periodic as PeriodicType
-from ServiceMonitoring import RTI_Service_Monitoring_ResourceKind as Kind
+from RoutingServiceMonitoring import RTI_Service_Monitoring_Periodic as Periodic
+from RoutingServiceMonitoring import RTI_Service_Monitoring_ResourceKind as Kind
 
 import time
 import rti.connextdds as dds
@@ -47,14 +47,14 @@ def main():
     args = parser.parse_args()
 
     participant = dds.DomainParticipant(args.domain)
-    topic = dds.Topic(participant, TOPIC_NAME, PeriodicType)
+    topic = dds.Topic(participant, TOPIC_NAME, Periodic)
 
     qos = dds.DataReaderQos()
     qos.data_representation = dds.DataRepresentation([dds.DataRepresentation.XCDR,
                                                       dds.DataRepresentation.XCDR2])
     qos.durability.kind = dds.DurabilityKind.TRANSIENT_LOCAL
 
-    reader = dds.DataReader(participant.implicit_subscriber, topic, qos)
+    reader = dds.DataReader(participant, topic, qos)
 
     start_http_server(args.port)
 
@@ -63,31 +63,36 @@ def main():
             if not sample.info.valid:
                 continue
             data = sample.data
-            kind = data.resource.kind
-            name = data.resource.name
+            union = data.value
+            kind = union.discriminator
+            
+            # LECTURA DE GUID
+            # guid = data.object_guid.value
+            # guid_str = ''.join(f'{b:02x}' for b in guid)
+            # print("GUID del recurso:", guid_str)	
 
             if kind == Kind.ROUTING_SERVICE:
-                m = data.resource_data.routing_service.host_metrics
-                cpu_usage.labels(instance=name).set(m.cpu_usage_percentage)
-                free_mem.labels(instance=name).set(m.free_memory_kb)
-                free_swap.labels(instance=name).set(m.free_swap_memory_kb)
-                uptime.labels(instance=name).set(m.uptime_sec)
+                metrics = union.routing_service.host
+                cpu_usage.labels(instance=name).set(metrics.cpu_usage_percentage.publication_period_metrics.mean)
+                free_mem.labels(instance=name).set(metrics.free_memory_kb.publication_period_metrics.mean)
+                free_swap.labels(instance=name).set(metrics.free_swap_memory_kb.publication_period_metrics.mean)
+                uptime.labels(instance=name).set(metrics.uptime_sec.publication_period_metrics.mean)
 
             elif kind == Kind.ROUTING_DOMAIN_ROUTE:
-                m = data.resource_data.routing_domain_route
-                domain_route_in_samples.labels(domain_route=name).set(m.in_samples_per_sec)
-                domain_route_in_bytes.labels(domain_route=name).set(m.in_bytes_per_sec)
-                domain_route_out_samples.labels(domain_route=name).set(m.output_samples_per_sec)
-                domain_route_out_bytes.labels(domain_route=name).set(m.output_bytes_per_sec)
-                domain_route_latency.labels(domain_route=name).set(m.latency_millisec)
+                metrics = data.resource_data.routing_domain_route
+                domain_route_in_samples.labels(domain_route=name).set(metrics.in_samples_per_sec.publication_period_metrics.mean)
+                domain_route_in_bytes.labels(domain_route=name).set(metrics.in_bytes_per_sec.publication_period_metrics.mean)
+                domain_route_out_samples.labels(domain_route=name).set(metrics.output_samples_per_sec.publication_period_metrics.mean)
+                domain_route_out_bytes.labels(domain_route=name).set(metrics.output_bytes_per_sec.publication_period_metrics.mean)
+                domain_route_latency.labels(domain_route=name).set(metrics.latency_millisec.publication_period_metrics.mean)
 
             elif kind == Kind.ROUTING_ROUTE:
-                m = data.resource_data.routing_route
-                route_in_samples.labels(route=name).set(m.in_samples_per_sec)
-                route_in_bytes.labels(route=name).set(m.in_bytes_per_sec)
-                route_out_samples.labels(route=name).set(m.output_samples_per_sec)
-                route_out_bytes.labels(route=name).set(m.output_bytes_per_sec)
-                route_latency.labels(route=name).set(m.latency_millisec)
+                metrics = data.resource_data.routing_route
+                route_in_samples.labels(route=name).set(metrics.in_samples_per_sec.publication_period_metrics.mean)
+                route_in_bytes.labels(route=name).set(metrics.in_bytes_per_sec.publication_period_metrics.mean)
+                route_out_samples.labels(route=name).set(metrics.output_samples_per_sec.publication_period_metrics.mean)
+                route_out_bytes.labels(route=name).set(metrics.output_bytes_per_sec.publication_period_metrics.mean)
+                route_latency.labels(route=name).set(metrics.latency_millisec.publication_period_metrics.mean)
 
         time.sleep(3) # Actualizar cada tres segundos
 
