@@ -1,2 +1,5 @@
 rtiddsgen -language Python -d . -inputIdl /opt/rti.com/rti_connext_dds-7.5.0/resource/idl/ServiceCommon.idl
 rtiddsgen -language Python -d . -inputIdl /opt/rti.com/rti_connext_dds-7.5.0/resource/idl/RoutingServiceMonitoring.idl
+idem para Recording y Service
+
+Nota: Necesario cambiar el limite de strings de 255 a 1024 para prevenir errores de serialización. Bug de RTI en la generacion Python.

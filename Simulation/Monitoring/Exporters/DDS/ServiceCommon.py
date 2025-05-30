@@ -2,7 +2,7 @@
 # WARNING: THIS FILE IS AUTO-GENERATED. DO NOT MODIFY.
 
 # This file was generated from ServiceCommon.idl
-# using RTI Code Generator (rtiddsgen) version 4.5.0.
+# using RTI Code Generator (rtiddsgen) version 4.5.0.1.
 # The rtiddsgen tool is part of the RTI Connext DDS distribution.
 # For more information, type 'rtiddsgen -help' at a command shell
 # or consult the Code Generator User's Manual.
@@ -24,7 +24,7 @@ RTI_Service = idl.get_module("RTI_Service")
 
 RTI.Service = RTI_Service
 
-RTI_Service_BOUNDED_STRING_LENGTH_MAX = 255
+RTI_Service_BOUNDED_STRING_LENGTH_MAX = 1024
 
 RTI.Service.BOUNDED_STRING_LENGTH_MAX = RTI_Service_BOUNDED_STRING_LENGTH_MAX
 
@@ -291,7 +291,7 @@ RTI.Service.Monitoring.NetworkPerformance = RTI_Service_Monitoring_NetworkPerfor
 
     member_annotations = {
         'resource_id': [idl.id(200274914), idl.bound(RTI.Service.RESOURCE_IDENTIFIER_LENGTH_MAX),],
-        'configuration': [idl.id(50778572), idl.bound(255),],
+        'configuration': [idl.id(50778572), idl.bound(RTI.Service.RESOURCE_IDENTIFIER_LENGTH_MAX),],
     }
 )
 class RTI_Service_Monitoring_EntityConfig:

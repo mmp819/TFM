@@ -2,7 +2,7 @@
 # WARNING: THIS FILE IS AUTO-GENERATED. DO NOT MODIFY.
 
 # This file was generated from RoutingServiceMonitoring.idl
-# using RTI Code Generator (rtiddsgen) version 4.5.0.
+# using RTI Code Generator (rtiddsgen) version 4.5.0.1.
 # The rtiddsgen tool is part of the RTI Connext DDS distribution.
 # For more information, type 'rtiddsgen -help' at a command shell
 # or consult the Code Generator User's Manual.
@@ -57,7 +57,7 @@ RTI.RoutingService.Monitoring.AdapterClassKind = RTI_RoutingService_Monitoring_A
 
     member_annotations = {
         'plugin_name': [idl.id(210719575), idl.bound(RTI.Service.BOUNDED_STRING_LENGTH_MAX),],
-        'configuration': [idl.id(50778572), idl.bound(255),],
+        'configuration': [idl.id(50778572), idl.bound(RTI.Service.BOUNDED_STRING_LENGTH_MAX),],
     }
 )
 class RTI_RoutingService_Monitoring_TransformationInfo:
@@ -195,7 +195,7 @@ RTI.RoutingService.Monitoring.RoutePeriodic = RTI_RoutingService_Monitoring_Rout
     type_annotations = [idl.mutable, idl.type_name("RTI::RoutingService::Monitoring::AutoRouteStreamPortInfo")],
 
     member_annotations = {
-        'configuration': [idl.id(50778572), idl.bound(255),],
+        'configuration': [idl.id(50778572), idl.bound(RTI.Service.BOUNDED_STRING_LENGTH_MAX),],
     }
 )
 class RTI_RoutingService_Monitoring_AutoRouteStreamPortInfo:
@@ -289,7 +289,7 @@ RTI.RoutingService.Monitoring.SessionPeriodic = RTI_RoutingService_Monitoring_Se
         'name': [idl.id(210987184), idl.bound(RTI.Service.BOUNDED_STRING_LENGTH_MAX),],
         '_py_class': [idl.id(267252386), idl.default(0),],
         'plugin_name': [idl.id(210719575), idl.bound(RTI.Service.BOUNDED_STRING_LENGTH_MAX),],
-        'configuration': [idl.id(50778572), idl.bound(255),],
+        'configuration': [idl.id(50778572), idl.bound(RTI.Service.BOUNDED_STRING_LENGTH_MAX),],
     }
 )
 class RTI_RoutingService_Monitoring_ConnectionConfigInfo:
