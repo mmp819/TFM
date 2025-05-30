@@ -21,7 +21,7 @@ prepare_vehicle_env() {
     # Crear entorno vistual
     sshpass -p $PASS ssh -p $PORT $USER@$node "python3 -m venv $dest/venv"
 
-    # Instalando dependencias
+    # Instalar dependencias
     sshpass -p $PASS ssh -p $PORT $USER@$node "source $dest/venv/bin/activate && \
         pip install --upgrade pip && pip install rti.connextdds"
 }
