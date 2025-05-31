@@ -13,7 +13,7 @@ prepare_aggregator_env() {
 	
 	# Copiar ficheros necesarios
 	echo "[*] Copiando ficheros..."
-	sshpass -p $PASS scp -P $PORT ../Simulation/Aggregator/agregator.py $USER@$node:$dest/ # Script de agregacion
+	sshpass -p $PASS scp -P $PORT ../Simulation/Aggregator/aggregator.py $USER@$node:$dest/ # Script de agregacion
 	sshpass -p $PASS scp -P $PORT ../Simulation/Aggregator/routing_vehicle_to_dds_domain10.xml $USER@$node:$dest/ # Configuracion del routing service
 	sshpass -p $PASS scp -P $PORT ../Simulation/DataTypes/python/vehicle_data.py $USER@$node:$dest/ # Tipo de datos
 	

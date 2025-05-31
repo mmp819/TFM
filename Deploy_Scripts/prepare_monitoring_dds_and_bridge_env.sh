@@ -21,8 +21,8 @@ prepare_monitoring_dds_and_bridge_env() {
     sudo apt-get install -y python3-venv && python3 -m venv $dir_export/venv"
 	
 	echo "[*] Instalando dependencias..."
-	sshpass -p $PASS ssh -p $PORT $USER@$node "source $dir_routing/venv/bin/activate && \
+	sshpass -p $PASS ssh -p $PORT $USER@$node "source $dir_export/venv/bin/activate && \
 		pip install --upgrade pip && pip install prometheus_client rti.connext==7.5.0"
 }
 
-prepare_monitoring_dds_and_brigde_env() "$1"
+prepare_monitoring_dds_and_bridge_env "$1"
