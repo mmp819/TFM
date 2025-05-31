@@ -29,9 +29,10 @@ prepare_vehicle_env() {
         pip install --upgrade pip && pip install rti.connextdds"
 }
 
+v_n=1
 while IFS= read -r node <&3; do
-    local v_n=1
-    prepare_vehicle_env "$node" "$v_n"
+    v_id=$(printf "%02d" "$v_n")
+    prepare_vehicle_env "$v_id" "$node"
     ((v_n++))
 done < nodes_vehicles.txt
 
