@@ -5,7 +5,6 @@
 10.0.3.7 --> Veh_04 - DDS
 10.0.3.8 --> Veh_05 - DDS
 10.0.3.9 --> Veh_06 - DDS
-10.0.3.10 --> Veh_07 - DDS
-10.0.3.11 --> Aggregator + DDS + Intra_Routing + Inter_Routing + DDS_Exporter (EDGE)
-10.0.3.12 --> Kafka + JMX Exporter
-10.0.3.13 --> Prometheus + Grafana + Kafka Plugin
+10.0.3.10 --> Aggregator + DDS + Intra_Routing + Inter_Routing + DDS_Exporter (EDGE)
+10.0.3.11 --> Kafka + JMX Exporter
+10.0.3.12 --> Prometheus + Grafana + Kafka Plugin
