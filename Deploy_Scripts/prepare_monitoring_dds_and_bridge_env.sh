@@ -10,8 +10,7 @@ prepare_monitoring_dds_and_bridge_env() {
 	sshpass -p $PASS ssh -p $PORT $USER@$node "mkdir -p $dir_dest"
 	
 	echo "[*] Copiando exportador DDS y Bridge..."
-	sshpass -p $PASS scp -P $PORT ../Simulation/Monitoring/Exporters/DDS/exporter_dds.py $USER@$node:$dir_export/
-	# PENDIENTE AÑADIR LOS TIPOS DE DATOS DE MONITORIZACION
+	sshpass -p $PASS scp -P $PORT ../Simulation/Monitoring/Exporters/DDS/*.py $USER@$node:$dir_export/
 	sshpass -p $PASS scp -P $PORT ../Simulation/Bridge/dds_kafka_bridge.xml $USER@$node:$dir_routing/
 	
 	echo "[*] Creando entorno virtual..."

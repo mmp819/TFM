@@ -1,6 +1,9 @@
 #!/bin/bash
 source common.sh
 
+set -o errexit
+exec 3< nodes_vehicles.txt # Cambiar descriptor para evitar conflictos con SSH
+
 prepare_vehicle_env() {
     local v_id=$1
     local node=$2
@@ -26,6 +29,14 @@ prepare_vehicle_env() {
         pip install --upgrade pip && pip install rti.connextdds"
 }
 
-prepare_vehicle_env $1 $2
+while IFS= read -r node <&3; do
+    local v_n=1
+    prepare_vehicle_env "$node" "$v_n"
+    ((v_n++))
+done < nodes_vehicles.txt
+
+exec 3<&-
+
+
 
 
