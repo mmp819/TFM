@@ -22,7 +22,7 @@ prepare_monitoring_dds_and_bridge_env() {
 	
 	echo "[*] Instalando dependencias..."
 	sshpass -p $PASS ssh -p $PORT $USER@$node "source $dir_routing/venv/bin/activate && \
-		pip install --upgrade pip && pip install prometheus_client rti.connextdds"
+		pip install --upgrade pip && pip install prometheus_client rti.connext==7.5.0"
 }
 
 prepare_monitoring_dds_and_brigde_env() "$1"

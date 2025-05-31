@@ -27,7 +27,7 @@ prepare_vehicle_env() {
 
     # Instalar dependencias
     sshpass -p $PASS ssh -p $PORT $USER@$node "source $dest/venv/bin/activate && \
-        pip install --upgrade pip && pip install rti.connextdds"
+        pip install --upgrade pip && pip install rti.connext==7.5.0"
 }
 
 v_n=1
