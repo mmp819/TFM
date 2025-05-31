@@ -9,7 +9,7 @@ INPUT = "./scenario36_5K.csv"   # CSV a procesar
 OUTPUT_DIR = "vehicles_csv"     # Directorio de salida
 
 # Numero de vehiculos y sectores en la simulacion
-NUM_VEHICLES = 7
+NUM_VEHICLES = 6
 NUM_SECTORS = 4
 
 # OFFSETS
