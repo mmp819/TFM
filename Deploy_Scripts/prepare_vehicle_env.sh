@@ -22,7 +22,8 @@ prepare_vehicle_env() {
     sshpass -p $PASS scp -P $PORT ../Simulation/DataTypes/python/vehicle_data.py $USER@$node:$dest/ # Tipo de datos
 
     # Crear entorno vistual
-    sshpass -p $PASS ssh -p $PORT $USER@$node "python3 -m venv $dest/venv"
+    sshpass -p $PASS ssh -p $PORT $USER@$node "sudo apt-get update &&
+    sudo apt-get install -y python3-venv && python3 -m venv $dest/venv"
 
     # Instalar dependencias
     sshpass -p $PASS ssh -p $PORT $USER@$node "source $dest/venv/bin/activate && \
