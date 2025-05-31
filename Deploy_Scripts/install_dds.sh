@@ -40,8 +40,10 @@ install_dds() {
     echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "cd /opt/rti.com/rti_connext_dds-7.5.0/rticonnextdds-gateway && sudo mkdir -p build && cd build && sudo cmake .. -DCONNEXTDDS_DIR=/opt/rti.com/rti_connext_dds-7.5.0  -DCMAKE_INSTALL_PREFIX=../install && sudo cmake --build . --target install"
     
     # Establecer variables de entorno
-    echo "[*] Estableciendo variable DDSHOME"
+    echo "[*] Estableciendo variables DDSHOME y de licencia"
     sshpass -p $PASS ssh -p $PORT $USER@$node "echo 'export NDDSHOME=/opt/rti.com/rti_connext_dds-7.5.0' >> ~/.bashrc"
+    sshpass -p $PASS ssh -p $PORT $USER@$node "echo 'export RTI_LICENSE_FILE=$RTI_WORKSPACE_DIR/rti_license.dat' >> ~/.bashrc"
+
     echo "[*] Estableciendo variables de entorno para librerias..."
     sshpass -p $PASS ssh -p $PORT $USER@$node "echo 'export LD_LIBRARY_PATH=\$NDDSHOME/rticonnextdds-gateway/install/lib:\$NDDSHOME/lib/x64Linux4gcc7.3.0:\$LD_LIBRARY_PATH' >> ~/.bashrc"
     echo "[*] Añadiendo RTI al PATH..."
