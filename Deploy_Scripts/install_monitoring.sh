@@ -3,7 +3,7 @@ source common.sh
 
 set -o errexit
 
-install_monitoring_stack() {
+install_monitoring() {
     local node=$1
 
     echo "[*] Instalando Prometheus y Grafana en $USER@$node"
@@ -36,5 +36,5 @@ install_monitoring_stack() {
     echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo grafana-cli plugins install hamedkarbasi93-kafka-datasource"
 }
 
-install_monitoring_stack $1 # IP
+install_monitoring $1 # IP
 
