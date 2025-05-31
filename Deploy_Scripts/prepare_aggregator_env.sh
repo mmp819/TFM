@@ -1,6 +1,8 @@
 #!/bin/bash
 source common.sh
 
+set -o errexit
+
 prepare_aggregator_env() {
 	local node=$1
 	local dest="${REMOTE_DIR}/aggregator"
@@ -17,7 +19,8 @@ prepare_aggregator_env() {
 	
 	# Crear entorno virtual de Python
 	echo "[*] Creando entorno virtual..."
-	sshpass -p $PASS ssh -p $PORT $USER@$node "python3 -m venv ${dest}/venv"
+	echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo apt-get update &&
+    sudo apt-get install -y python3-venv && python3 -m venv ${dest}/venv"
 	
 	# Instalar dependencias
 	sshpass -p $PASS ssh -p $PORT $USER@$node "source $dest/venv/bin/activate && \

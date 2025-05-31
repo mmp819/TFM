@@ -1,6 +1,8 @@
 #!/bin/bash
 source common.sh
 
+set -o errexit
+
 prepare_monitoring_kafka_env() {
 	local node=$1
 	local dir_kafka="/opt/kafka"

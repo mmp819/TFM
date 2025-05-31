@@ -12,7 +12,7 @@ prepare_vehicle_env() {
     local dest="${REMOTE_DIR}/veh_${v_id}"
 
     # Crear directorio remoto
-    echo "[*] Creando directorio..."
+    echo "[*] Creando directorio $dest en $node..."
     sshpass -p $PASS ssh -p $PORT $USER@$node "mkdir -p $dest"
 
     # Copiar ficheros necesarios
@@ -22,7 +22,7 @@ prepare_vehicle_env() {
     sshpass -p $PASS scp -P $PORT ../Simulation/DataTypes/python/vehicle_data.py $USER@$node:$dest/ # Tipo de datos
 
     # Crear entorno vistual
-    sshpass -p $PASS ssh -p $PORT $USER@$node "sudo apt-get update &&
+    echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo apt-get update &&
     sudo apt-get install -y python3-venv && python3 -m venv $dest/venv"
 
     # Instalar dependencias
