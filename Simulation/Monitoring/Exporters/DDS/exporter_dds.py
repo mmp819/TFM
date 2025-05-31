@@ -10,10 +10,10 @@ import argparse
 # Objetivo de monitorizacion
 
 TOPIC_PERIODIC = "rti/service/monitoring/periodic"
-TOPI_CONFG = "rti/service/monitoring/config"
+TOPIC_CONFIG = "rti/service/monitoring/config"
 
 # Diccionario GUID - Nombre
-guide_name = {}
+guid_name = {}
 
 def guid_to_str(guid_bytes):
     # Convierte el identificador a un formato legible en String.
@@ -97,7 +97,7 @@ def main():
                 continue
             data = sample.data
             guid = guid_to_str(data.object_guid.value)
-            name = guid_name_map.get(guid, guid)
+            name = guid_name.get(guid, guid)
             union = data.value
             kind = union.discriminator
             try: 

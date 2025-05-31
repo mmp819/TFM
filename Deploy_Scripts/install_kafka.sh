@@ -1,6 +1,8 @@
 #!/bin/bash
 source common.sh
 
+set -o errexit
+
 install_kafka() {
     local node=$1
 

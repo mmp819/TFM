@@ -2,16 +2,28 @@ import pandas as pd
 import numpy as np
 from geopy.distance import geodesic
 import os
+import random
 
-# Constantes y directorios
+# Directorios
 INPUT = "./scenario36_5K.csv"   # CSV a procesar
 OUTPUT_DIR = "vehicles_csv"     # Directorio de salida
-NUM_VEHICLES = 11
+
+# Numero de vehiculos y sectores en la simulacion
+NUM_VEHICLES = 7
 NUM_SECTORS = 4
+
+# OFFSETS
 LAT_OFFSET = 0.00008
 LON_OFFSET = 0.00012
 TIME_OFFSET = 2.0
+
+# Intervalo fijo
 INTERVAL_S = 1.0 / 10.0         # 1s / 10Hz
+
+# Ruido adicional en las coordenadas
+LAT_NOISE = 0.00001
+LON_NOISE = 0.000015
+GPS_INVALID_PROB = 0.02    # 2% de muestras invalidas de GPS
 
 def calculate_sector(lat, sector_bounds):
     # Asigna una muestra a un sector concreto en funcion de su latitud.
@@ -86,9 +98,14 @@ def main():
         df = df_0.copy()
 
         # Desfase por vehiculo
-        df["gps_latitude"] += i * LAT_OFFSET
-        df["gps_longitude"] += i * LON_OFFSET
+        df["gps_latitude"] += i * LAT_OFFSET + np.random.uniform(-LAT_NOISE, LAT_NOISE)
+        df["gps_longitude"] += i * LON_OFFSET + np.random.uniform(-LON_NOISE, LON_NOISE)
         df["timestamp"] = df["timestamp"].apply(lambda ts: shift_time(ts, i))
+        
+        # Anhadir ruido a la calidad del GPS
+        df["gps_hdop"] += np.random.uniform(0.0, 0.2, size=len(df))
+        df["gps_pdop"] += np.random.uniform(0.0, 0.2, size=len(df))
+        df["gps_vdop"] += np.random.uniform(0.0, 0.2, size=len(df))
 
         # Calcular velocidad entre puntos
         df["speed"] = 0.0
@@ -102,6 +119,16 @@ def main():
         df["sector_id"] = df["gps_latitude"].apply(lambda lat: calculate_sector(lat, sector_bounds))
         df["vehicle_id"] = vehicle_id
         df = complete_lost_samples(df)
+
+        # Alterar muestras de GPS para que algunas sean invalidas
+        valid_rows = df.dropna(subset=["gps_latitude", "gps_longitude"])
+        num_rows_to_invalidate = int(len(valid_rows) * GPS_INVALID_PROB)
+        idx_to_invalidate = valid_rows.sample(n=num_rows_to_invalidate).index
+        
+        # Asignar valores altos en HDOP, PDOP y VDOP para simular mala calidad GPS (5-10)
+        df.loc[idx_to_invalidate, "gps_hdop"] = np.random.uniform(5.1, 10.0, size=num_rows_to_invalidate)
+        df.loc[idx_to_invalidate, "gps_pdop"] = np.random.uniform(5.1, 10.0, size=num_rows_to_invalidate)
+        df.loc[idx_to_invalidate, "gps_vdop"] = np.random.uniform(5.1, 10.0, size=num_rows_to_invalidate)
 
         # Guardar archivo por vehículo
         new_columns = ["vehicle_id", "timestamp", "gps_latitude", "gps_longitude", "gps_altitude", "gps_hdop", "gps_pdop", "gps_vdop", "speed", "sector_id"]

@@ -3,6 +3,8 @@ source common.sh
 
 RTI_WORKSPACE_DIR="/home/$USER/rti_workspace/7.5.0"
 
+set -o errexit
+
 install_dds() {
     local node=$1
 

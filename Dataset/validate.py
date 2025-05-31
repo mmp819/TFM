@@ -62,12 +62,12 @@ def main():
 	
 	for i in range(len(vehicles_id)):
 		for j in range(i + 1, len(vehicles_id)):
-		    v1, v2 = vehicles_id[i], vehicles_id[j]
-		    lat1, lon1 = positions[v1]
-		    lat2, lon2 = positions[v2]
-		    win = create_window(lat1, lon1)
-		    if win[0] <= lat2 <= win[1] and win[2] <= lon2 <= win[3]:
-		        print(f"{v1} cercano con {v2}")
+			v1, v2 = vehicles_id[i], vehicles_id[j]
+			lat1, lon1 = positions[v1]
+			lat2, lon2 = positions[v2]
+			win = create_window(lat1, lon1)
+			if win[0] <= lat2 <= win[1] and win[2] <= lon2 <= win[3]:
+				print(f"{v1} cercano con {v2}")
 
 main()
 

@@ -1,6 +1,8 @@
 #!/bin/bash
 source common.sh
 
+set -o errexit
+
 install_monitoring_stack() {
     local node=$1
 
@@ -30,6 +32,8 @@ install_monitoring_stack() {
 	echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo apt-get update"
 
 	echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo apt-get install -y grafana"
+
+    echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo grafana-cli plugins install hamedkarbasi93-kafka-datasource"
 }
 
 install_monitoring_stack $1 # IP
