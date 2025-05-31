@@ -4,6 +4,7 @@ source common.sh
 RTI_WORKSPACE_DIR="/home/$USER/rti_workspace/7.5.0"
 
 set -o errexit
+exec 3< nodes_dds.txt # Cambiar descriptor para evitar conflictos con SSH
 
 install_dds() {
     local node=$1
@@ -48,7 +49,8 @@ install_dds() {
     
 }
 
-while IFS= read -r node; do
-    [[ -z "$node" ]] && continue
+while IFS= read -r node <&3; do
     install_dds "$node"
 done < nodes_dds.txt
+
+exec 3<&-
