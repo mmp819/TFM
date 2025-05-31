@@ -48,6 +48,7 @@ install_dds() {
     
 }
 
-while read node; do
-	install_dds "$node"
+while IFS= read -r node; do
+    [[ -z "$node" ]] && continue
+    install_dds "$node"
 done < nodes_dds.txt
