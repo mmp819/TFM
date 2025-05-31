@@ -25,10 +25,7 @@ install_kafka() {
     sshpass -p $PASS ssh -p $PORT $USER@$node "echo 'export PATH=\${PATH}:\${KAFKA_HOME}/bin' >> ~/.bashrc"
 
     echo "[*] Añadiendo ajustes..."
-    echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node"
-    echo 'listeners=PLAINTEXT://0.0.0.0:9092' | sudo tee -a /opt/kafka/config/server.properties
-    echo 'advertised.listeners=PLAINTEXT://10.0.3.10:9092' | sudo tee -a /opt/kafka/config/server.properties
-"
+    echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "echo 'listeners=PLAINTEXT://0.0.0.0:9092' | sudo tee -a /opt/kafka/config/server.properties && echo 'advertised.listeners=PLAINTEXT://10.0.3.10:9092' | sudo tee -a /opt/kafka/config/server.properties"
 }
 
 install_kafka $1 # IP
