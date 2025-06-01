@@ -64,6 +64,8 @@ def simulate_vehicle(csv_file):
 	
 	sector = int(float(rows[0]['sector_id']))
 	vehicle_id = rows[0]['vehicle_id']
+	lat = float(rows[0]['gps_latitude'])
+	lon = float(rows[0]['gps_longitude'])
 	filter_parameters = create_window(lat, lon)
 	participant, writer, reader = create_entities(sector, filter_parameters)
     
