@@ -95,7 +95,7 @@ def simulate_vehicle(csv_file):
     		gps_altitude = float(row['gps_altitude']),
     		gps_hdop = float(row['gps_hdop']),
     		gps_pdop = float(row['gps_pdop']),
-    		gps_vop = float(row['gps_vdop']),
+    		gps_vdop = float(row['gps_vdop']),
     		speed = float(row['speed'])
     	)
     	

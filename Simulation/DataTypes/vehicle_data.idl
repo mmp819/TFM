@@ -1,7 +1,7 @@
 module VehicleSimulation {
 	@final
 	struct VehicleState {
-		@key string <2> vehicle_id;  // Identificador del vehiculo
+		@key string <6> vehicle_id;  // Identificador del vehiculo
 		double timestamp;            // Marca temporal en segundos
 		double gps_latitude;         // Coordenada de latitud
 		double gps_longitude;        // Coordenada de longitud   

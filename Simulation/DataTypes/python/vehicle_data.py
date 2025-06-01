@@ -24,7 +24,7 @@ VehicleSimulation = idl.get_module("VehicleSimulation")
     type_annotations = [idl.final, idl.type_name("VehicleSimulation::VehicleState")],
 
     member_annotations = {
-        'vehicle_id': [idl.key, idl.bound(2),],
+        'vehicle_id': [idl.key, idl.bound(6),],
     }
 )
 class VehicleSimulation_VehicleState:
