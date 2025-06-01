@@ -11,15 +11,6 @@ from vehicle_data import VehicleSimulation
 DELTA_FILTER = 0.0003
 STATE_TOPIC = "Vehicle_State"
 FILTERED_STATE_TOPIC = "Filtered_" + STATE_TOPIC
-
-def timestamp_to_seconds(ts: str) -> float:
-	# Params:
-	#	ts: Timestamp en el formato por defecto del dataset.
-	# Return: Timestamp convertido a segundos (tomando como partida 00:00:00).
-
-	h, m, s_micro = ts.split('-')
-	s, micro = s_micro.split('.')
-	return int(h) * 3600 + int(m) * 60 + int(s) + int(micro) / 1e6
 	
 def create_window(lat, lon):
 	# Params:
@@ -50,8 +41,8 @@ def create_entities(domain, filter_parameters):
 	# Crear entidades de consumo
 	filter_expression = "gps_latitude > %0 AND gps_latitude < %1 AND gps_longitude > %2\
 		AND gps_longitude < %3"
-	filter = dds.Filter(filter_expression, filter_parameters)
-	filtered_topic = dds.ContentFilteredTopic(topic, "Filtered_Vehicle_State", filter)
+	ftr = dds.Filter(filter_expression, filter_parameters)
+	filtered_topic = dds.ContentFilteredTopic(topic, "Filtered_Vehicle_State", ftr)
 	reader = dds.DataReader(participant.implicit_subscriber, filtered_topic)
 	
 	return participant, writer, reader
@@ -71,12 +62,12 @@ def simulate_vehicle(csv_file):
 	participant, writer, reader = create_entities(sector, filter_parameters)
     
 	t0_real = time.time()
-	t0_dataset = timestamp_to_seconds(rows[0]['timestamp'])
+	t0_dataset = float(rows[0]['timestamp'])
     
 	for row in rows:
 		if not row['sector_id']: # No pudo tomarse muestra para dicho timestamp
 			continue
-		timestamp_dataset = timestamp_to_seconds(row['timestamp'])
+		timestamp_dataset = float(row['timestamp'])
 		sleep_time = (timestamp_dataset - t0_dataset) - (time.time() - t0_real)
 		if sleep_time > 0:
 			time.sleep(sleep_time)
