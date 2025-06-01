@@ -45,7 +45,7 @@ def create_entities(domain, filter_parameters):
 	filtered_topic = dds.ContentFilteredTopic(topic, "Filtered_Vehicle_State", ftr)
 	reader = dds.DataReader(participant.implicit_subscriber, filtered_topic)
 	
-	return participant, writer, reader
+	return participant, writer, reader, filtered_topic
 	
 def simulate_vehicle(csv_file):
 	# Simula un vehiculo en movimiento, a partir de los datos incluidos en un fichero CSV.
@@ -59,7 +59,7 @@ def simulate_vehicle(csv_file):
 	lat = float(rows[0]['gps_latitude'])
 	lon = float(rows[0]['gps_longitude'])
 	filter_parameters = create_window(lat, lon)
-	participant, writer, reader = create_entities(sector, filter_parameters)
+	participant, writer, reader, filtered_topic = create_entities(sector, filter_parameters)
     
 	t0_real = time.time()
 	t0_dataset = float(rows[0]['timestamp'])
@@ -75,15 +75,16 @@ def simulate_vehicle(csv_file):
 		new_sector = int(float(row['sector_id']))
 		lat = float(row['gps_latitude'])
 		lon = float(row['gps_longitude'])
+		old_parameters = filter_parameters
 		filter_parameters = create_window(lat, lon)
 	
 		if sector != new_sector: # Cambio de sector
 			participant.close()   		
-			participant, writer, reader = create_entities(new_sector, filter_parameters)
+			participant, writer, reader, filtered_topic = create_entities(new_sector, filter_parameters)
 			sector = new_sector
     	
-		if reader.filter_parameters != filter_parameters: # Actualizar solo si es necesario
-			reader.filter_parameters = filter_parameters
+		if old_parameters != filter_parameters: # Actualizar solo si es necesario
+			filtered_topic.set_expression_parameters(filter_parameters)
     	
     	# Crea la muestra a escribir en DDS
 		sample = VehicleSimulation.VehicleState(
