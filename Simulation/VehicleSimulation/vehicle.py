@@ -48,10 +48,11 @@ def create_entities(domain, filter_parameters):
 	writer = dds.DataWriter(participant.implicit_publisher, topic)
 	
 	# Crear entidades de consumo
-	filter_expression = "gps_latitude > % 0 AND gps_latitude < %1 AND gps_longitude > %2\
+	filter_expression = "gps_latitude > %0 AND gps_latitude < %1 AND gps_longitude > %2\
 		AND gps_longitude < %3"
-	filtered_topic = dds.ContentFilteredTopic(topic, "Filtered_Vehicle_State", filter_expression, filter_parameters)
-	reader = dds.DataReader(participant.implicit_subscriber, topic)
+	filter = dds.Filter(filter_expression, filter_parameters)
+	filtered_topic = dds.ContentFilteredTopic(topic, "Filtered_Vehicle_State", filter)
+	reader = dds.DataReader(participant.implicit_subscriber, filtered_topic)
 	
 	return participant, writer, reader
 	
@@ -90,7 +91,8 @@ def simulate_vehicle(csv_file):
 			participant, writer, reader = create_entities(new_sector, filter_parameters)
 			sector = new_sector
     	
-		reader.filter_parameters = filter_parameters
+		if reader.filter_parameters != filter_parameters: # Actualizar solo si es necesario
+			reader.filter_parameters = filter_parameters
     	
     	# Crea la muestra a escribir en DDS
 		sample = VehicleSimulation.VehicleState(
@@ -115,9 +117,9 @@ def simulate_vehicle(csv_file):
 				reliability_1 = sample.gps_pdop > 5.0 or sample.gps_hdop > 5.0 or sample.gps_vdop > 5.0
 				reliability_2 = neighbour.gps_pdop > 5.0 or neighbour.gps_hdop > 5.0 or neighbour.gps_vdop > 5.0
 				if reliability_1 or reliability_2:
-					print(f"POSIBLE [{vehicle_id}] CERCANO A : {data.data.vehicle_id} EN ({data.data.gps_latitude}, {data.dada.gps_longitude})")
+					print(f"POSIBLE [{vehicle_id}] CERCANO A : {data.data.vehicle_id} EN ({data.data.gps_latitude}, {data.data.gps_longitude})")
 				else:
-					print(f"[{vehicle_id}] CERCANO A : {data.data.vehicle_id} EN ({data.data.gps_latitude}, {data.dada.gps_longitude})")
+					print(f"[{vehicle_id}] CERCANO A : {data.data.vehicle_id} EN ({data.data.gps_latitude}, {data.data.gps_longitude})")
 	
 simulate_vehicle(sys.argv[1])
 	
