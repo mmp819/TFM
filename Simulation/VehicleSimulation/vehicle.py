@@ -62,7 +62,7 @@ def simulate_vehicle(csv_file):
 		reader_csv = csv.DictReader(csv_data)
 		rows = list(reader_csv)
 	
-	sector = int(rows[0]['sector_id'])
+	sector = int(float(rows[0]['sector_id']))
 	vehicle_id = rows[0]['vehicle_id']
 	filter_parameters = create_window(lat, lon)
 	participant, writer, reader = create_entities(sector, filter_parameters)
@@ -78,7 +78,7 @@ def simulate_vehicle(csv_file):
 		if sleep_time > 0:
 			time.sleep(sleep_time)
 		
-		new_sector = int(row['sector_id'])
+		new_sector = int(float(row['sector_id']))
 		lat = float(row['gps_latitude'])
 		lon = float(row['gps_longitude'])
 		filter_parameters = create_window(lat, lon)

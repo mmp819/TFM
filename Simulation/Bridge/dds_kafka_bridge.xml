@@ -85,7 +85,7 @@
                     <value>
                         <element>
                             <name>bootstrap.servers</name>
-                            <value>127.0.0.1:9092</value>
+                            <value>10.0.3.10:9092</value>
                         </element>
                     </value>
                 </property>
