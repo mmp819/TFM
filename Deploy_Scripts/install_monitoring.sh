@@ -18,6 +18,8 @@ install_monitoring() {
     echo "[*] Añadiendo Prometheus al PATH..."
     sshpass -p $PASS ssh -p $PORT $USER@$node "echo 'export PROMETHEUS_HOME=/opt/prometheus' >> ~/.bashrc"
     sshpass -p $PASS ssh -p $PORT $USER@$node "echo 'export PATH=\$PATH:\$PROMETHEUS_HOME' >> ~/.bashrc"
+    sshpass -p $PASS scp -P $PORT ../Simulation/Monitoring/Prometheus/prometheus.yml $USER@$node:/home/$USER/
+    echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "sudo mv /home/$USER/prometheus.yml /opt/prometheus/"
 
     # Grafana
     echo "[*] Añadiendo repositorio de Grafana..."

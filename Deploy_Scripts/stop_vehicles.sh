@@ -13,7 +13,7 @@ stop_vehicles() {
 }
 
 while IFS= read -r node <&3; do
-	stop_vehicles "$node"
+	stop_vehicles "$node" &
 done < nodes_vehicles.txt
 
 exec 3>&-

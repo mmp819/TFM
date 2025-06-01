@@ -23,7 +23,7 @@
             </distributed_logger>
         </administration>
         <monitoring>
-            <domain_id>11</domain_id>
+            <domain_id>10</domain_id>
             <status_publication_period>
                 <sec>5</sec>
                 <nanosec>0</nanosec>
