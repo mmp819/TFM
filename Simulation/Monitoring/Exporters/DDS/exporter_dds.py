@@ -38,7 +38,7 @@ domain_route_in_bytes = Gauge("rti_domain_route_input_bytes",
                               "Input bytes/s", ["domain_route"])
 domain_route_out_samples = Gauge("rti_domain_route_output_samples",
                                  "Ouput samples/s", ["domain_route"])
-domain_route_out_bytes = Gauge("rti_domain_route_output_bytes"
+domain_route_out_bytes = Gauge("rti_domain_route_output_bytes",
                                "Output bytes/s", ["domain_route"])
 domain_route_latency = Gauge("rti_domain_route_latency",
                              "Avg. Latency (ms)", ["domain_route"])
@@ -106,22 +106,22 @@ def main():
                     cpu_usage.labels(instance=name).set(metrics.cpu_usage_percentage.publication_period_metrics.mean)
                     free_mem.labels(instance=name).set(metrics.free_memory_kb.publication_period_metrics.mean)
                     free_swap.labels(instance=name).set(metrics.free_swap_memory_kb.publication_period_metrics.mean)
-                    uptime.labels(instance=name).set(metrics.uptime_sec.publication_period_metrics.mean)
+                    uptime.labels(instance=name).set(metrics.uptime_sec)
 
                 elif kind == Kind.ROUTING_DOMAIN_ROUTE:
-                    metrics = data.resource_data.routing_domain_route
+                    metrics = union.routing_domain_route
                     domain_route_in_samples.labels(domain_route=name).set(metrics.in_samples_per_sec.publication_period_metrics.mean)
                     domain_route_in_bytes.labels(domain_route=name).set(metrics.in_bytes_per_sec.publication_period_metrics.mean)
-                    domain_route_out_samples.labels(domain_route=name).set(metrics.output_samples_per_sec.publication_period_metrics.mean)
-                    domain_route_out_bytes.labels(domain_route=name).set(metrics.output_bytes_per_sec.publication_period_metrics.mean)
+                    domain_route_out_samples.labels(domain_route=name).set(metrics.out_samples_per_sec.publication_period_metrics.mean)
+                    domain_route_out_bytes.labels(domain_route=name).set(metrics.out_bytes_per_sec.publication_period_metrics.mean)
                     domain_route_latency.labels(domain_route=name).set(metrics.latency_millisec.publication_period_metrics.mean)
 
                 elif kind == Kind.ROUTING_ROUTE:
                     metrics = data.resource_data.routing_route
                     route_in_samples.labels(route=name).set(metrics.in_samples_per_sec.publication_period_metrics.mean)
                     route_in_bytes.labels(route=name).set(metrics.in_bytes_per_sec.publication_period_metrics.mean)
-                    route_out_samples.labels(route=name).set(metrics.output_samples_per_sec.publication_period_metrics.mean)
-                    route_out_bytes.labels(route=name).set(metrics.output_bytes_per_sec.publication_period_metrics.mean)
+                    route_out_samples.labels(route=name).set(metrics.out_samples_per_sec.publication_period_metrics.mean)
+                    route_out_bytes.labels(route=name).set(metrics.out_bytes_per_sec.publication_period_metrics.mean)
                     route_latency.labels(route=name).set(metrics.latency_millisec.publication_period_metrics.mean)
             except Exception as e:
                 print(f"Error con la muestra de {kind}:{name}: {e}")

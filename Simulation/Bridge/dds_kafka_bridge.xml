@@ -62,7 +62,7 @@
         <!-- Habilitar monitorizacion -->
         <monitoring>
             <enabled>true</enabled>
-            <domain_id>11</domain_id>
+            <domain_id>12</domain_id>
            <status_publication_period>
                 <sec>3</sec>
                 <nanosec>0</nanosec>

@@ -24,5 +24,5 @@ while IFS= read -r node <&3; do
 	run_vehicles "$v_id" "$node" &
 	((v_n++))
 done < nodes_vehicles.txt
-
+wait
 exec 3>&-
