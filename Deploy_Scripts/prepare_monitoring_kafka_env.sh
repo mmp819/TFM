@@ -23,7 +23,7 @@ prepare_monitoring_kafka_env() {
 	
 	
 	echo "[*] Modificando script de arranque de Kafka..."
-	echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "echo 'export KAFKA_JMX_OPTS=\"-javaagent:${dir_kafka}/jmx_prometheus_javaagent-1.3.0.jar=${jmx_port}:${dir_kafka}/jmx_exporter.yml\"' \
+	echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "echo 'export KAFKA_OPTS=\"-javaagent:${dir_kafka}/jmx_prometheus_javaagent-1.3.0.jar=${jmx_port}:${dir_kafka}/jmx_exporter.yml\"' \
 		| sudo tee -a $dir_kafka/bin/kafka-server-start.sh"
 }
 

@@ -14,7 +14,7 @@ run_vehicles() {
 	# Ejecutar la simulacion y mantener en segundo plano. Guardar outputs en logs.
 	echo "Ejecutando Vehiculo ${v_id} en $node..."
 	sshpass -p $PASS ssh -p $PORT $USER@$node "cd $dir && source venv/bin/activate && \
-		export RTI_LICENSE_FILE=/home/$USER/rti_workspace/7.5.0/rti_license.dat \
+		export RTI_LICENSE_FILE=/home/$USER/rti_workspace/7.5.0/rti_license.dat && \
 		nohup python3 vehicle.py $csv > ${v_id}.log 2>&1 &"
 }
 

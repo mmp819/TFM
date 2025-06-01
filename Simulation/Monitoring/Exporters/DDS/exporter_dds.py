@@ -117,7 +117,7 @@ def main():
                     domain_route_latency.labels(domain_route=name).set(metrics.latency_millisec.publication_period_metrics.mean)
 
                 elif kind == Kind.ROUTING_ROUTE:
-                    metrics = data.resource_data.routing_route
+                    metrics = union.routing_route
                     route_in_samples.labels(route=name).set(metrics.in_samples_per_sec.publication_period_metrics.mean)
                     route_in_bytes.labels(route=name).set(metrics.in_bytes_per_sec.publication_period_metrics.mean)
                     route_out_samples.labels(route=name).set(metrics.out_samples_per_sec.publication_period_metrics.mean)

@@ -9,7 +9,7 @@ import sys
 from vehicle_data import VehicleSimulation
 
 DELTA_FILTER = 0.0003
-STATE_TOPIC = "Vehicle_State"
+STATE_TOPIC = "VehicleState"
 FILTERED_STATE_TOPIC = "Filtered_" + STATE_TOPIC
 	
 def create_window(lat, lon):
