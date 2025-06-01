@@ -84,7 +84,7 @@ def simulate_vehicle(csv_file):
 			sector = new_sector
     	
 		if old_parameters != filter_parameters: # Actualizar solo si es necesario
-			filtered_topic.set_expression_parameters(filter_parameters)
+			filtered_topic.filter_parameters = filter_parameters
     	
     	# Crea la muestra a escribir en DDS
 		sample = VehicleSimulation.VehicleState(
