@@ -1,15 +1,19 @@
 #!/bin/bash
 source common.sh
 
+set -o errexit
+exec 3< nodes_vehicles.txt # Cambiar descriptor para evitar conflictos con SSH
+
 stop_vehicles() {
-	# Para cada nodo asignado a un vehiculo
-	while read node; do
-		echo "Deteniendo vehiculo asignado a $node..."
+	echo "Deteniendo vehiculo asignado a $1..."
 		
-		# Matar proceso
-		echo "Ejecutando Vehiculo ${veh_id} en $node..."
-		sshpass -p $PASS ssh -p $PORT $USER@$node "pkill -f vehicle.py && echo 'Simulacion detenida.'"
-	done < nodes_vehicles.txt
+	# Matar proceso
+	echo "Deteniendo $1..."
+	echo $PASS | sshpass -p $PASS ssh -tt -p $PORT $USER@$node "pkill -f vehicle.py && echo 'Simulacion detenida.'"
 }
 
-stop_vehicles
+while IFS= read -r node <&3; do
+	stop_vehicles "$node"
+done < nodes_vehicles.txt
+
+exec 3>&-
