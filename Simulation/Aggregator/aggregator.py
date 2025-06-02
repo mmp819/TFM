@@ -33,7 +33,7 @@ def aggregate_and_publish(writer):
         congestion = vehicle_count / 10.0 # Formula simplificada
         
         # Publicar agregados
-        aggregation = VehicleSimulation.AggregatedData(
+        aggregation = VehicleSimulation.AggregatedVehicleData(
             sector_id = sector_id,
             avg_speed = avg_speed,
             vehicle_count = vehicle_count,
@@ -42,8 +42,7 @@ def aggregate_and_publish(writer):
         )
         writer.write(aggregation)
         # Mensaje util para debug o depositar en .log
-        print(f"Datos agregados - Sector {sector_id}: {vehicle_count} vehiculos | \
-              Velocidad (Avg): {avg_speed:.2f} km/h | Atasco (Lvl): {congestion:.2f}")
+        print(f"Datos agregados - Sector {sector_id}: {vehicle_count} vehiculos | Velocidad (Avg): {avg_speed:.2f} km/h | Atasco (Lvl): {congestion:.2f}")
         
         # Vaciar datos del sector
         sector_data[sector_id] = []

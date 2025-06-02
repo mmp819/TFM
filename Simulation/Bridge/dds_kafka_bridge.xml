@@ -23,25 +23,28 @@
 
     <!-- Tipos de datos utilizados -->
     <types>
-        <struct name="VehicleSimulation::VehicleState" extensibility="final">
-            <member name="vehicle_id" type="string" stringMaxLength="6" key="true"/>
-            <member name="timestamp" type="double"/>
-            <member name="gps_latitude" type="double"/>
-            <member name="gps_longitude" type="double"/>
-            <member name="gps_altitude" type="double"/>
-            <member name="gps_hdop" type="double"/>
-            <member name="gps_pdop" type="double"/>
-            <member name="gps_vdop" type="double"/>
-            <member name="speed" type="double"/>
-            <member name="sector_id" type="string" stringMaxLength="3"/>
-        </struct>
-        <struct name="VehicleSimulation::AggregatedVehicleData" extensibility="final">
-            <member name="sector_id" type="string" stringMaxLength="3" key="true"/>
-            <member name="timestamp" type="double"/>
-            <member name="avg_speed" type="double"/>
-            <member name="vehicle_count" type="int32"/>
-            <member name="congestion_lvl" type="double"/>
-        </struct>
+        <module>
+            <struct name="VehicleSimulation::VehicleState" extensibility="final">
+                <member name="vehicle_id" type="string" stringMaxLength="6" key="true"/>
+                <member name="timestamp" type="double"/>
+                <member name="gps_latitude" type="double"/>
+                <member name="gps_longitude" type="double"/>
+                <member name="gps_altitude" type="double"/>
+                <member name="gps_hdop" type="double"/>
+                <member name="gps_pdop" type="double"/>
+                <member name="gps_vdop" type="double"/>
+                <member name="speed" type="double"/>
+                <member name="sector_id" type="string" stringMaxLength="3"/>
+            </struct>
+            <struct name="VehicleSimulation::AggregatedVehicleData" extensibility="final">
+                <member name="sector_id" type="string" stringMaxLength="3" key="true"/>
+                <member name="timestamp" type="double"/>
+                <member name="avg_speed" type="double"/>
+                <member name="vehicle_count" type="int32"/>
+                <member name="congestion_lvl" type="double"/>
+            </struct>
+        </module>
+        
         <module name="RTI">
             <module name="Kafka">
                 <struct name="MessagePayload" nested="true">

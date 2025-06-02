@@ -96,7 +96,7 @@ def simulate_vehicle(csv_file):
     		gps_pdop = float(row['gps_pdop']),
     		gps_vdop = float(row['gps_vdop']),
     		speed = float(row['speed']),
-			sector_id = int(float(row['sector_id']))
+			sector_id = row['sector_id']
     	)
     	
     	# Escribe la muestra
