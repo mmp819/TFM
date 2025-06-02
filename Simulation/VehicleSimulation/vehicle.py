@@ -10,7 +10,6 @@ from vehicle_data import VehicleSimulation
 
 DELTA_FILTER = 0.0003
 STATE_TOPIC = "VehicleState"
-FILTERED_STATE_TOPIC = "Filtered_" + STATE_TOPIC
 	
 def create_window(lat, lon):
 	# Params:
@@ -112,7 +111,7 @@ def simulate_vehicle(csv_file):
 					print(f"POSIBLE [{vehicle_id}] CERCANO A : {data.data.vehicle_id} EN ({data.data.gps_latitude}, {data.data.gps_longitude})")
 				else:
 					print(f"[{vehicle_id}] CERCANO A : {data.data.vehicle_id} EN ({data.data.gps_latitude}, {data.data.gps_longitude})")
-	
-simulate_vehicle(sys.argv[1])
-	
-	
+
+if __name__ == "__main__":
+	csv_path = sys.argv[1]
+	simulate_vehicle(csv_path)

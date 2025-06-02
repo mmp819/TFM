@@ -21,10 +21,10 @@
         </transformation_plugin>
     </plugin_library>
 
-    <!-- Definicion explicita de tipos de datos utilizados -->
+    <!-- Tipos de datos utilizados -->
     <types>
         <struct name="VehicleStateType" extensibility="final">
-            <member name="vehicle_id" type="string" stringMaxLength="2" key="true"/>
+            <member name="vehicle_id" type="string" stringMaxLength="6" key="true"/>
             <member name="timestamp" type="double"/>
             <member name="gps_latitude" type="double"/>
             <member name="gps_longitude" type="double"/>
@@ -59,7 +59,7 @@
             </documentation>
         </annotation>
 
-        <!-- Habilitar monitorizacion -->
+        <!-- Monitorizacion -->
         <monitoring>
             <enabled>true</enabled>
             <domain_id>12</domain_id>
@@ -73,7 +73,7 @@
             </statistics_sampling_period>
         </monitoring>
 
-        <!-- Definir rutas -->
+        <!-- Rutas -->
         <domain_route name="dds_to_kafka_route">
             <participant name="dds">
                 <registered_type name="VehicleStateType" type_name="VehicleStateType"/>

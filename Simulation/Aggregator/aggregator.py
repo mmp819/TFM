@@ -4,7 +4,7 @@ import time
 from vehicle_data import VehicleSimulation
 
 AGGREGATION_PERIOD = 5.0  # Segundos
-DOP_LIMIT_FILTER = 5.0
+DOP_LIMIT_FILTER = 5.0    # Limite de calidad
 AGGREGATION_DOMAIN = 10
 STATE_TOPIC = "VehicleState"
 AGGREGATION_TOPIC = "AggregatedVehicleData"
@@ -41,7 +41,7 @@ def aggregate_and_publish(writer):
             timestamp = timestamp
         )
         writer.write(aggregation)
-        # Mensaje util para debug
+        # Mensaje util para debug o depositar en .log
         print(f"Datos agregados - Sector {sector_id}: {vehicle_count} vehiculos | \
               Velocidad (Avg): {avg_speed:.2f} km/h | Atasco (Lvl): {congestion:.2f}")
         
@@ -64,7 +64,7 @@ def main():
         for data in reader.take():
             if data.info.valid:
                 sample = data.data
-                # Descartar muestra si su medicion no es fiable
+                # Descartar muestra si no es fiable
                 if (sample.gps_pdop > DOP_LIMIT_FILTER or
                     sample.gps_hdop > DOP_LIMIT_FILTER or 
                     sample.gps_vdop > DOP_LIMIT_FILTER):
@@ -79,4 +79,5 @@ def main():
             aggregate_and_publish(writer)
             t_0 = time.time()
 
-main() 
+if __name__ == "__main__":
+    main()

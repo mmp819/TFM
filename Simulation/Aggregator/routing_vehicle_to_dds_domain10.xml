@@ -1,6 +1,20 @@
 <dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="/opt/rti_connext_dds-7.5.0/resource/schema/rti_routing_service.xsd">
-    
+
+    <!-- Tipos -->
+    <types>
+        <struct name="VehicleStateType" extensibility="final">
+            <member name="vehicle_id" type="string" stringMaxLength="6" key="true"/>
+            <member name="timestamp" type="double"/>
+            <member name="gps_latitude" type="double"/>
+            <member name="gps_longitude" type="double"/>
+            <member name="gps_altitude" type="double"/>
+            <member name="gps_hdop" type="double"/>
+            <member name="gps_pdop" type="double"/>
+            <member name="gps_vdop" type="double"/>
+            <member name="speed" type="double"/>
+        </struct>
+    </types>
 
     <routing_service name="AggregationRouting">
         <annotation>
@@ -8,16 +22,8 @@
                 del caso de uso hacia el dominio 10.
             </documentation>
         </annotation>
-
-        <!-- Habilita la administracion y monitorizacion con las
-            herramientas de RTI, (util para debug) -->
-        <administration>
-            <domain_id>0</domain_id>
-            <distributed_logger>
-                 <enabled>true</enabled>
-                <filter_level>WARNING</filter_level>
-            </distributed_logger>
-        </administration>
+        
+        <!-- Monitorizacion -->
         <monitoring>
             <domain_id>11</domain_id>
             <status_publication_period>
@@ -30,40 +36,30 @@
             </statistics_sampling_period>
         </monitoring>
 
-        <!-- Definicion del enrutamiento. -->
-        <domain_route name="AggregationDomainRoute">
-
-            <participant name="domain1">
+        <!-- Rutas -->
+        <domain_route name="AggregationDomainRoute1to10">
+            <participant name="1">
                 <domain_id>1</domain_id>
             </participant>
-            <participant name="domain2">
-                <domain_id>2</domain_id>
-            </participant>
-            <participant name="domain3">
-                <domain_id>3</domain_id>
-            </participant>
-            <participant name="domain4">
-                <domain_id>4</domain_id>
-            </participant>
-            <participant name="domain10">
+            <participant name="1to10">
                 <domain_id>10</domain_id>
             </participant>
-
-            <session name="AggregationSession">
+            
+            <session name="Session_1">
                 <topic_route name="Route1to10" enabled="true">
                     <publish_with_original_info>true</publish_with_original_info>
-                    <input participant="domain1">
+                    <input participant="1">
                         <topic_name>VehicleState</topic_name>
-                        <registered_type_name>VehicleState</registered_type_name>
+                        <registered_type_name>VehicleStateType</registered_type_name>
                         <datareader_qos>
                             <reliability>
                                 <kind>RELIABLE_RELIABILITY_QOS</kind>
                             </reliability>
                         </datareader_qos>
                     </input>
-                    <output participant="domain10">
+                    <output participant="1to10">
                         <topic_name>VehicleState</topic_name>
-                        <registered_type_name>VehicleState</registered_type_name>
+                        <registered_type_name>VehicleStateType</registered_type_name>
                         <datawriter_qos>
                             <reliability>
                                 <kind>RELIABLE_RELIABILITY_QOS</kind>
@@ -71,20 +67,32 @@
                         </datawriter_qos>
                     </output>
                 </topic_route>
+            </session>
+        </domain_route>
+
+        <domain_route name="AggregationDomainRoute2to10">
+            <participant name="2">
+                <domain_id>2</domain_id>
+            </participant>
+            <participant name="2to10">
+                <domain_id>10</domain_id>
+            </participant>
+            
+            <session name="Session_2">
                 <topic_route name="Route2to10" enabled="true">
                     <publish_with_original_info>true</publish_with_original_info>
-                    <input participant="domain2">
+                    <input participant="2">
                         <topic_name>VehicleState</topic_name>
-                        <registered_type_name>VehicleState</registered_type_name>
+                        <registered_type_name>VehicleStateType</registered_type_name>
                         <datareader_qos>
                             <reliability>
                                 <kind>RELIABLE_RELIABILITY_QOS</kind>
                             </reliability>
                         </datareader_qos>
                     </input>
-                    <output participant="domain10">
+                    <output participant="2to10">
                         <topic_name>VehicleState</topic_name>
-                        <registered_type_name>VehicleState</registered_type_name>
+                        <registered_type_name>VehicleStateType</registered_type_name>
                         <datawriter_qos>
                             <reliability>
                                 <kind>RELIABLE_RELIABILITY_QOS</kind>
@@ -92,41 +100,32 @@
                         </datawriter_qos>
                     </output>
                 </topic_route>
+            </session>
+        </domain_route>
+
+        <domain_route name="AggregationDomainRoute3to10">
+            <participant name="3">
+                <domain_id>3</domain_id>
+            </participant>
+            <participant name="3to10">
+                <domain_id>10</domain_id>
+            </participant>
+            
+            <session name="Session_3">
                 <topic_route name="Route3to10" enabled="true">
                     <publish_with_original_info>true</publish_with_original_info>
-                    <input participant="domain3">
+                    <input participant="3">
                         <topic_name>VehicleState</topic_name>
-                        <registered_type_name>VehicleState</registered_type_name>
+                        <registered_type_name>VehicleStateType</registered_type_name>
                         <datareader_qos>
                             <reliability>
                                 <kind>RELIABLE_RELIABILITY_QOS</kind>
                             </reliability>
                         </datareader_qos>
                     </input>
-                    <output participant="domain10">
+                    <output participant="3to10">
                         <topic_name>VehicleState</topic_name>
-                        <registered_type_name>VehicleState</registered_type_name>
-                        <datawriter_qos>
-                            <reliability>
-                                <kind>RELIABLE_RELIABILITY_QOS</kind>
-                            </reliability>
-                        </datawriter_qos>
-                    </output>
-                </topic_route>
-                <topic_route name="Route4to10" enabled="true">
-                    <publish_with_original_info>true</publish_with_original_info>
-                    <input participant="domain4">
-                        <topic_name>VehicleState</topic_name>
-                        <registered_type_name>VehicleState</registered_type_name>
-                        <datareader_qos>
-                            <reliability>
-                                <kind>RELIABLE_RELIABILITY_QOS</kind>
-                            </reliability>
-                        </datareader_qos>
-                    </input>
-                    <output participant="domain10">
-                        <topic_name>VehicleState</topic_name>
-                        <registered_type_name>VehicleState</registered_type_name>
+                        <registered_type_name>VehicleStateType</registered_type_name>
                         <datawriter_qos>
                             <reliability>
                                 <kind>RELIABLE_RELIABILITY_QOS</kind>
