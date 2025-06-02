@@ -23,7 +23,7 @@
 
     <!-- Tipos de datos utilizados -->
     <types>
-        <struct name="VehicleStateType" extensibility="final">
+        <struct name="VehicleSimulation::VehicleState" extensibility="final">
             <member name="vehicle_id" type="string" stringMaxLength="6" key="true"/>
             <member name="timestamp" type="double"/>
             <member name="gps_latitude" type="double"/>
@@ -34,7 +34,7 @@
             <member name="gps_vdop" type="double"/>
             <member name="speed" type="double"/>
         </struct>
-        <struct name="AggregatedDataType" extensibility="final">
+        <struct name="VehicleSimulation::AggregatedData" extensibility="final">
             <member name="sector_id" type="string" stringMaxLength="2" key="true"/>
             <member name="timestamp" type="double"/>
             <member name="avg_speed" type="double"/>
@@ -76,8 +76,8 @@
         <!-- Rutas -->
         <domain_route name="dds_to_kafka_route">
             <participant name="dds">
-                <registered_type name="VehicleStateType" type_name="VehicleStateType"/>
-                <registered_type name="AggregatedDataType" type_name="AggregatedDataType"/>
+                <registered_type name="VehicleStateType" type_name="VehicleSimulation::VehicleState"/>
+                <registered_type name="AggregatedDataType" type_name="VehicleSimulation::AggregatedData"/>
                 <registered_type name="RTI::Kafka::Message" type_name="RTI::Kafka::Message"/>
             </participant>
             <connection name="kafka" plugin_name="plugin_library::kafka_adapter">
@@ -89,15 +89,15 @@
                         </element>
                     </value>
                 </property>
-                <registered_type name="VehicleStateType" type_name="VehicleStateType"/>
-                <registered_type name="AggregatedDataType" type_name="AggregatedDataType"/>
+                <registered_type name="VehicleStateType" type_name="VehicleSimulation::VehicleState"/>
+                <registered_type name="AggregatedDataType" type_name="VehicleSimulation::AggregatedData"/>
                 <registered_type name="RTI::Kafka::Message" type_name="RTI::Kafka::Message"/>
             </connection>
             <session name="bridge_session">
                 <route name="dds_to_kafka_vehicle">
                     <dds_input name="VehicleState" participant="dds">
                         <topic_name>VehicleState</topic_name>
-                        <registered_type_name>VehicleStateType</registered_type_name>
+                        <registered_type_name>VehicleSimulation::VehicleState</registered_type_name>
                     </dds_input>
                     <output connection="kafka">
                         <registered_type_name>
@@ -116,7 +116,7 @@
                             </value>
                         </property>
                         <transformation plugin_name="plugin_library::json_transformation">
-                            <input_type_name>VehicleStateType</input_type_name>
+                            <input_type_name>VehicleSimulation::VehicleState</input_type_name>
                             <property>
                                 <value>
                                     <element>
@@ -135,7 +135,7 @@
                 <route name="dds_to_kafka_aggregated">
                     <dds_input name="AggregatedData" participant="dds">
                         <topic_name>AggregatedData</topic_name>
-                        <registered_type_name>AggregatedDataType</registered_type_name>
+                        <registered_type_name>VehicleSimulation::AggregatedData</registered_type_name>
                     </dds_input>
                     <output connection="kafka">
                         <registered_type_name>
@@ -154,7 +154,7 @@
                             </value>
                         </property>
                         <transformation plugin_name="plugin_library::json_transformation">
-                            <input_type_name>AggregatedDataType</input_type_name>
+                            <input_type_name>VehicleSimulation::AggregatedData</input_type_name>
                             <property>
                                 <value>
                                     <element>
