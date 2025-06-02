@@ -2,7 +2,7 @@
 # WARNING: THIS FILE IS AUTO-GENERATED. DO NOT MODIFY.
 
 # This file was generated from vehicle_data.idl
-# using RTI Code Generator (rtiddsgen) version 4.5.0.
+# using RTI Code Generator (rtiddsgen) version 4.5.0.1.
 # The rtiddsgen tool is part of the RTI Connext DDS distribution.
 # For more information, type 'rtiddsgen -help' at a command shell
 # or consult the Code Generator User's Manual.
@@ -25,6 +25,7 @@ VehicleSimulation = idl.get_module("VehicleSimulation")
 
     member_annotations = {
         'vehicle_id': [idl.key, idl.bound(6),],
+        'sector_id': [idl.bound(3),],
     }
 )
 class VehicleSimulation_VehicleState:
@@ -37,6 +38,7 @@ class VehicleSimulation_VehicleState:
     gps_pdop: float = 0.0
     gps_vdop: float = 0.0
     speed: float = 0.0
+    sector_id: str = ""
 
 VehicleSimulation.VehicleState = VehicleSimulation_VehicleState
 
@@ -44,7 +46,7 @@ VehicleSimulation.VehicleState = VehicleSimulation_VehicleState
     type_annotations = [idl.final, idl.type_name("VehicleSimulation::AggregatedVehicleData")],
 
     member_annotations = {
-        'sector_id': [idl.key, idl.bound(2),],
+        'sector_id': [idl.key, idl.bound(3),],
     }
 )
 class VehicleSimulation_AggregatedVehicleData:

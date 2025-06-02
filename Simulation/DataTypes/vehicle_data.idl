@@ -10,11 +10,12 @@ module VehicleSimulation {
 		double gps_pdop;             // Dilucion de precision (posicion-3D)
 		double gps_vdop;             // Dilucion de precision vertical
 		double speed;                // Velocidad en Km/h
+		string<3> sector_id;         // Identificador del sector/dominio
 	};
 	
 	@final
 	struct AggregatedVehicleData {
-		@key string<2> sector_id;    // Identificador del sector/dominio
+		@key string<3> sector_id;    // Identificador del sector/dominio
 		double timestamp;            // Marca temporal en segundos
 		double avg_speed;            // Velocidad media en el sector (Km/h)
 		int32 vehicle_count;         // Numero de vehiculos en el sector
