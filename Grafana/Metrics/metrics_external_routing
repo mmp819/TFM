@@ -1,0 +1,83 @@
+# HELP python_gc_objects_collected_total Objects collected during gc
+# TYPE python_gc_objects_collected_total counter
+python_gc_objects_collected_total{generation="0"} 269.0
+python_gc_objects_collected_total{generation="1"} 18.0
+python_gc_objects_collected_total{generation="2"} 0.0
+# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC
+# TYPE python_gc_objects_uncollectable_total counter
+python_gc_objects_uncollectable_total{generation="0"} 0.0
+python_gc_objects_uncollectable_total{generation="1"} 0.0
+python_gc_objects_uncollectable_total{generation="2"} 0.0
+# HELP python_gc_collections_total Number of times this generation was collected
+# TYPE python_gc_collections_total counter
+python_gc_collections_total{generation="0"} 76.0
+python_gc_collections_total{generation="1"} 6.0
+python_gc_collections_total{generation="2"} 0.0
+# HELP python_info Python platform information
+# TYPE python_info gauge
+python_info{implementation="CPython",major="3",minor="12",patchlevel="3",version="3.12.3"} 1.0
+# HELP process_virtual_memory_bytes Virtual memory size in bytes.
+# TYPE process_virtual_memory_bytes gauge
+process_virtual_memory_bytes 8.79947776e+08
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes 8.204288e+07
+# HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds 1.74895596334e+09
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE process_cpu_seconds_total counter
+process_cpu_seconds_total 8.64
+# HELP process_open_fds Number of open file descriptors.
+# TYPE process_open_fds gauge
+process_open_fds 13.0
+# HELP process_max_fds Maximum number of open file descriptors.
+# TYPE process_max_fds gauge
+process_max_fds 1024.0
+# HELP rti_routing_service_cpu CPU Usage (%)
+# TYPE rti_routing_service_cpu gauge
+rti_routing_service_cpu{instance="/routing_services/DDStoKafka"} 32.704612731933594
+# HELP rti_routing_service_mem_free Free Memory (KB)
+# TYPE rti_routing_service_mem_free gauge
+rti_routing_service_mem_free{instance="/routing_services/DDStoKafka"} 111060.0
+# HELP rti_routing_service_swap_free Free Swap (KB)
+# TYPE rti_routing_service_swap_free gauge
+rti_routing_service_swap_free{instance="/routing_services/DDStoKafka"} 3.254684e+06
+# HELP rti_routing_service_uptime Uptime (Seconds)
+# TYPE rti_routing_service_uptime gauge
+rti_routing_service_uptime{instance="/routing_services/DDStoKafka"} 10348.0
+# HELP rti_domain_route_input_samples Input samples/s
+# TYPE rti_domain_route_input_samples gauge
+rti_domain_route_input_samples{domain_route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route"} 49.85044860839844
+# HELP rti_domain_route_input_bytes Input bytes/s
+# TYPE rti_domain_route_input_bytes gauge
+rti_domain_route_input_bytes{domain_route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route"} 4785.64306640625
+# HELP rti_domain_route_output_samples Ouput samples/s
+# TYPE rti_domain_route_output_samples gauge
+rti_domain_route_output_samples{domain_route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route"} 49.85044860839844
+# HELP rti_domain_route_output_bytes Output bytes/s
+# TYPE rti_domain_route_output_bytes gauge
+rti_domain_route_output_bytes{domain_route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route"} 4785.64306640625
+# HELP rti_domain_route_latency Avg. Latency (ms)
+# TYPE rti_domain_route_latency gauge
+rti_domain_route_latency{domain_route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route"} 0.23269999027252197
+# HELP rti_route_input_samples Input samples/s
+# TYPE rti_route_input_samples gauge
+rti_route_input_samples{route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route/sessions/bridge_session/routes/dds_to_kafka_vehicle"} 49.85044860839844
+rti_route_input_samples{route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route/sessions/bridge_session/routes/dds_to_kafka_aggregated"} 0.33233633637428284
+# HELP rti_route_input_bytes Input bytes/s
+# TYPE rti_route_input_bytes gauge
+rti_route_input_bytes{route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route/sessions/bridge_session/routes/dds_to_kafka_vehicle"} 4785.64306640625
+rti_route_input_bytes{route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route/sessions/bridge_session/routes/dds_to_kafka_aggregated"} 15.952143669128418
+# HELP rti_route_output_samples Output samples/s
+# TYPE rti_route_output_samples gauge
+rti_route_output_samples{route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route/sessions/bridge_session/routes/dds_to_kafka_vehicle"} 49.85044860839844
+rti_route_output_samples{route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route/sessions/bridge_session/routes/dds_to_kafka_aggregated"} 0.33233633637428284
+# HELP rti_route_output_bytes Output bytes/s
+# TYPE rti_route_output_bytes gauge
+rti_route_output_bytes{route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route/sessions/bridge_session/routes/dds_to_kafka_vehicle"} 4785.64306640625
+rti_route_output_bytes{route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route/sessions/bridge_session/routes/dds_to_kafka_aggregated"} 15.952143669128418
+# HELP rti_route_latency Latency (ms)
+# TYPE rti_route_latency gauge
+rti_route_latency{route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route/sessions/bridge_session/routes/dds_to_kafka_vehicle"} 0.12269999831914902
+rti_route_latency{route="/routing_services/DDStoKafka/domain_routes/dds_to_kafka_route/sessions/bridge_session/routes/dds_to_kafka_aggregated"} 0.10199999809265137
